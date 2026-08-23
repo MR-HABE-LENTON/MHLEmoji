@@ -1,0 +1,11 @@
+﻿{
+  "name": "Samsung Color Emoji",
+  "author": "M.H.L",
+  "version": "1.0.0",
+  "fonts": [
+    {
+      "name": "SamsungColorEmoji",
+      "url": "https://cdn.jsdelivr.net/gh/MR-HABE-LENTON/MHLEmoji@main/SamsungColorEmoji.ttf"
+    }
+  ]
+}
