@@ -1,3 +1,9 @@
+﻿/**
+ * @name Samsung Emojis
+ * @author M.H.L
+ * @description Samsung Emoji Replacer Theme
+ * @version 1.0.0
+ */
 /* حماية وتثبيت إيموجيات السيرفرات المخصصة */
 img[src*="cdn.discordapp.com/emojis/"] { content: normal !important; }
 
