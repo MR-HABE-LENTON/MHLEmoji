@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    :root {
+      --neon: #ff0055;
+      --neon-glow: rgba(255, 0, 85, 0.4);
+      --bg: #090a0f;
+      --card-bg: rgba(22, 24, 35, 0.75);
+      --text: #ffffff;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="light"] {
+      --bg: #f0f2f5;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --text: #0f172a;
+      --border: rgba(0, 0, 0, 0.08);
+    }
+
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+    body {
+      width: 300px;
+      margin: 0;
+      padding: 18px;
+      background: var(--bg);
+      color: var(--text);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 10px var(--neon-glow);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+
+    select, input[type="range"] {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px;
+      outline: none;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    select:focus {
+      border-color: var(--neon);
+      box-shadow: 0 0 10px var(--neon-glow);
+    }
+
+    .size-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .reset-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+      border-color: var(--neon);
+      color: var(--neon);
+    }
+
+    .neon-swatches {
+      display: flex;
+      gap: 8px;
+    }
+
+    .swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s;
+    }
+
+    .swatch:hover { transform: scale(1.2); }
+    .swatch.active { border-color: #fff; box-shadow: 0 0 10px var(--neon); }
+
+    .switch {
+      position: relative;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(255,255,255,0.2); transition: .3s; border-radius: 20px;
+    }
+
+    .slider:before {
+      position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px;
+      background-color: white; transition: .3s; border-radius: 50%;
+    }
+
+    input:checked + .slider { background-color: var(--neon); box-shadow: 0 0 8px var(--neon-glow); }
+    input:checked + .slider:before { transform: translateX(16px); }
+
+    .apply-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: var(--neon);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 0 15px var(--neon-glow);
+      transition: transform 0.1s, opacity 0.2s;
+    }
+
+    .apply-btn:active { transform: scale(0.98); }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="brand">🎩 <span>M.H.L Emoji</span></div>
+    <div class="neon-swatches">
+      <div class="swatch active" style="background:#ff0055;" data-color="#ff0055"></div>
+      <div class="swatch" style="background:#00f3ff;" data-color="#00f3ff"></div>
+      <div class="swatch" style="background:#00ff66;" data-color="#00ff66"></div>
+      <div class="swatch" style="background:#b026ff;" data-color="#b026ff"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <label>حزمة الإيموجي</label>
+    <select id="styleSelect">
+      <option value="samsung">سامسونج (One UI)</option>
+      <option value="apple">آبل (iOS)</option>
+      <option value="google">جوجل (Android)</option>
+      <option value="facebook">فيسبوك</option>
+      <option value="twitter">تويتر</option>
+      <option value="windows">ويندوز (Segoe)</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <label>
+      <span>حجم الإيموجي: <b id="sizeVal">120%</b></span>
+      <button class="reset-btn" id="resetSizeBtn">↺ افتراضي</button>
+    </label>
+    <div class="size-control">
+      <input type="range" id="sizeRange" min="100" max="200" step="5" value="120">
+    </div>
+  </div>
+
+  <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+    <span style="font-size:12px; font-weight:600;">الوضع الداكن</span>
+    <label class="switch">
+      <input type="checkbox" id="themeSwitch" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <button class="apply-btn" id="saveBtn">حفظ وتحديث الصفحة 🔄</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>
